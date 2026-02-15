@@ -1,0 +1,862 @@
+{
+  "roadmaps": [
+    {
+      "id": "frontend",
+      "title": "Frontend Developer",
+      "description": "Step by step guide to becoming a modern frontend developer in 2026",
+      "difficulty": "beginner",
+      "content": [
+        {
+          "type": "category",
+          "title": "Internet",
+          "children": [
+            {
+              "id": "internet-1",
+              "type": "topic",
+              "title": "How does the internet work?"
+            },
+            {
+              "id": "internet-2",
+              "type": "topic",
+              "title": "What is HTTP?"
+            },
+            {
+              "id": "internet-3",
+              "type": "topic",
+              "title": "What is Domain Name?"
+            },
+            {
+              "id": "internet-4",
+              "type": "topic",
+              "title": "What is hosting?"
+            },
+            {
+              "id": "internet-5",
+              "type": "topic",
+              "title": "DNS and how it works?"
+            },
+            {
+              "id": "internet-6",
+              "type": "topic",
+              "title": "Browsers and how they work?"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "HTML",
+          "children": [
+            {
+              "id": "html-1",
+              "type": "topic",
+              "title": "Learn the basics"
+            },
+            {
+              "id": "html-2",
+              "type": "topic",
+              "title": "Semantic HTML"
+            },
+            {
+              "id": "html-3",
+              "type": "topic",
+              "title": "Forms and Validations"
+            },
+            {
+              "id": "html-4",
+              "type": "topic",
+              "title": "Accessibility"
+            },
+            {
+              "id": "html-5",
+              "type": "topic",
+              "title": "SEO Basics"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "CSS",
+          "children": [
+            {
+              "id": "css-1",
+              "type": "topic",
+              "title": "Learn the basics"
+            },
+            {
+              "id": "css-2",
+              "type": "topic",
+              "title": "Making Layouts"
+            },
+            {
+              "id": "css-3",
+              "type": "topic",
+              "title": "Responsive Design"
+            },
+            {
+              "id": "css-4",
+              "type": "topic",
+              "title": "CSS Flexbox"
+            },
+            {
+              "id": "css-5",
+              "type": "topic",
+              "title": "CSS Grid"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "JavaScript",
+          "children": [
+            {
+              "id": "js-1",
+              "type": "topic",
+              "title": "Syntax and Basics"
+            },
+            {
+              "id": "js-2",
+              "type": "topic",
+              "title": "DOM Manipulation"
+            },
+            {
+              "id": "js-3",
+              "type": "topic",
+              "title": "Fetch API / Ajax"
+            },
+            {
+              "id": "js-4",
+              "type": "topic",
+              "title": "ES6+ Features"
+            },
+            {
+              "id": "js-5",
+              "type": "topic",
+              "title": "Async JavaScript"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Version Control",
+          "children": [
+            {
+              "id": "git-1",
+              "type": "topic",
+              "title": "Basic Git"
+            },
+            {
+              "id": "git-2",
+              "type": "topic",
+              "title": "GitHub"
+            },
+            {
+              "id": "git-3",
+              "type": "topic",
+              "title": "GitLab"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Package Managers",
+          "children": [
+            {
+              "id": "pkg-1",
+              "type": "topic",
+              "title": "npm"
+            },
+            {
+              "id": "pkg-2",
+              "type": "topic",
+              "title": "yarn"
+            },
+            {
+              "id": "pkg-3",
+              "type": "topic",
+              "title": "pnpm"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "CSS Frameworks",
+          "children": [
+            {
+              "id": "css-fw-1",
+              "type": "topic",
+              "title": "Tailwind CSS"
+            },
+            {
+              "id": "css-fw-2",
+              "type": "topic",
+              "title": "Bootstrap"
+            },
+            {
+              "id": "css-fw-3",
+              "type": "topic",
+              "title": "Material UI"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "JavaScript Frameworks",
+          "children": [
+            {
+              "id": "js-fw-1",
+              "type": "topic",
+              "title": "React"
+            },
+            {
+              "id": "js-fw-2",
+              "type": "topic",
+              "title": "Vue.js"
+            },
+            {
+              "id": "js-fw-3",
+              "type": "topic",
+              "title": "Angular"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "python",
+      "title": "Python Developer",
+      "description": "Complete guide to learning Python programming from basics to advanced",
+      "difficulty": "beginner",
+      "content": [
+        {
+          "type": "category",
+          "title": "Python Basics",
+          "children": [
+            {
+              "id": "py-1",
+              "type": "topic",
+              "title": "Installation & Setup"
+            },
+            {
+              "id": "py-2",
+              "type": "topic",
+              "title": "Variables & Data Types"
+            },
+            {
+              "id": "py-3",
+              "type": "topic",
+              "title": "Control Flow"
+            },
+            {
+              "id": "py-4",
+              "type": "topic",
+              "title": "Functions"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Data Structures",
+          "children": [
+            {
+              "id": "py-ds-1",
+              "type": "topic",
+              "title": "Lists & Tuples"
+            },
+            {
+              "id": "py-ds-2",
+              "type": "topic",
+              "title": "Dictionaries & Sets"
+            },
+            {
+              "id": "py-ds-3",
+              "type": "topic",
+              "title": "Strings"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "OOP in Python",
+          "children": [
+            {
+              "id": "py-oop-1",
+              "type": "topic",
+              "title": "Classes & Objects"
+            },
+            {
+              "id": "py-oop-2",
+              "type": "topic",
+              "title": "Inheritance"
+            },
+            {
+              "id": "py-oop-3",
+              "type": "topic",
+              "title": "Polymorphism"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Advanced Topics",
+          "children": [
+            {
+              "id": "py-adv-1",
+              "type": "topic",
+              "title": "File Handling"
+            },
+            {
+              "id": "py-adv-2",
+              "type": "topic",
+              "title": "Exception Handling"
+            },
+            {
+              "id": "py-adv-3",
+              "type": "topic",
+              "title": "Modules & Packages"
+            },
+            {
+              "id": "py-adv-4",
+              "type": "topic",
+              "title": "Decorators"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Web Development",
+          "children": [
+            {
+              "id": "py-web-1",
+              "type": "topic",
+              "title": "Flask"
+            },
+            {
+              "id": "py-web-2",
+              "type": "topic",
+              "title": "Django"
+            },
+            {
+              "id": "py-web-3",
+              "type": "topic",
+              "title": "FastAPI"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Data Science",
+          "children": [
+            {
+              "id": "py-data-1",
+              "type": "topic",
+              "title": "NumPy"
+            },
+            {
+              "id": "py-data-2",
+              "type": "topic",
+              "title": "Pandas"
+            },
+            {
+              "id": "py-data-3",
+              "type": "topic",
+              "title": "Matplotlib"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "javascript",
+      "title": "JavaScript Developer",
+      "description": "Master JavaScript programming from fundamentals to advanced concepts",
+      "difficulty": "intermediate",
+      "content": [
+        {
+          "type": "category",
+          "title": "JavaScript Fundamentals",
+          "children": [
+            {
+              "id": "jsdev-1",
+              "type": "topic",
+              "title": "Variables & Data Types"
+            },
+            {
+              "id": "jsdev-2",
+              "type": "topic",
+              "title": "Operators"
+            },
+            {
+              "id": "jsdev-3",
+              "type": "topic",
+              "title": "Control Structures"
+            },
+            {
+              "id": "jsdev-4",
+              "type": "topic",
+              "title": "Functions"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Advanced Concepts",
+          "children": [
+            {
+              "id": "jsdev-adv-1",
+              "type": "topic",
+              "title": "Closures"
+            },
+            {
+              "id": "jsdev-adv-2",
+              "type": "topic",
+              "title": "Promises"
+            },
+            {
+              "id": "jsdev-adv-3",
+              "type": "topic",
+              "title": "Async/Await"
+            },
+            {
+              "id": "jsdev-adv-4",
+              "type": "topic",
+              "title": "Prototypes"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "ES6+ Features",
+          "children": [
+            {
+              "id": "jsdev-es6-1",
+              "type": "topic",
+              "title": "Arrow Functions"
+            },
+            {
+              "id": "jsdev-es6-2",
+              "type": "topic",
+              "title": "Destructuring"
+            },
+            {
+              "id": "jsdev-es6-3",
+              "type": "topic",
+              "title": "Spread & Rest"
+            },
+            {
+              "id": "jsdev-es6-4",
+              "type": "topic",
+              "title": "Modules"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "DOM & Browser APIs",
+          "children": [
+            {
+              "id": "jsdev-dom-1",
+              "type": "topic",
+              "title": "DOM Manipulation"
+            },
+            {
+              "id": "jsdev-dom-2",
+              "type": "topic",
+              "title": "Event Handling"
+            },
+            {
+              "id": "jsdev-dom-3",
+              "type": "topic",
+              "title": "Fetch API"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Node.js",
+          "children": [
+            {
+              "id": "jsdev-node-1",
+              "type": "topic",
+              "title": "Node.js Basics"
+            },
+            {
+              "id": "jsdev-node-2",
+              "type": "topic",
+              "title": "Express.js"
+            },
+            {
+              "id": "jsdev-node-3",
+              "type": "topic",
+              "title": "REST APIs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "backend",
+      "title": "Backend Developer",
+      "description": "Learn backend development with server-side technologies and databases",
+      "difficulty": "intermediate",
+      "content": [
+        {
+          "type": "category",
+          "title": "Programming Language",
+          "children": [
+            {
+              "id": "be-1",
+              "type": "topic",
+              "title": "Python"
+            },
+            {
+              "id": "be-2",
+              "type": "topic",
+              "title": "Node.js"
+            },
+            {
+              "id": "be-3",
+              "type": "topic",
+              "title": "Java"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Databases",
+          "children": [
+            {
+              "id": "be-db-1",
+              "type": "topic",
+              "title": "PostgreSQL"
+            },
+            {
+              "id": "be-db-2",
+              "type": "topic",
+              "title": "MongoDB"
+            },
+            {
+              "id": "be-db-3",
+              "type": "topic",
+              "title": "Redis"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "APIs",
+          "children": [
+            {
+              "id": "be-api-1",
+              "type": "topic",
+              "title": "REST"
+            },
+            {
+              "id": "be-api-2",
+              "type": "topic",
+              "title": "GraphQL"
+            },
+            {
+              "id": "be-api-3",
+              "type": "topic",
+              "title": "gRPC"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Authentication",
+          "children": [
+            {
+              "id": "be-auth-1",
+              "type": "topic",
+              "title": "JWT"
+            },
+            {
+              "id": "be-auth-2",
+              "type": "topic",
+              "title": "OAuth"
+            },
+            {
+              "id": "be-auth-3",
+              "type": "topic",
+              "title": "Session Management"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "DevOps Basics",
+          "children": [
+            {
+              "id": "be-devops-1",
+              "type": "topic",
+              "title": "Docker"
+            },
+            {
+              "id": "be-devops-2",
+              "type": "topic",
+              "title": "CI/CD"
+            },
+            {
+              "id": "be-devops-3",
+              "type": "topic",
+              "title": "Cloud Services"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "react",
+      "title": "React Developer",
+      "description": "Master React.js and build modern web applications",
+      "difficulty": "intermediate",
+      "content": [
+        {
+          "type": "category",
+          "title": "React Basics",
+          "children": [
+            {
+              "id": "react-1",
+              "type": "topic",
+              "title": "JSX"
+            },
+            {
+              "id": "react-2",
+              "type": "topic",
+              "title": "Components"
+            },
+            {
+              "id": "react-3",
+              "type": "topic",
+              "title": "Props"
+            },
+            {
+              "id": "react-4",
+              "type": "topic",
+              "title": "State"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Hooks",
+          "children": [
+            {
+              "id": "react-hooks-1",
+              "type": "topic",
+              "title": "useState"
+            },
+            {
+              "id": "react-hooks-2",
+              "type": "topic",
+              "title": "useEffect"
+            },
+            {
+              "id": "react-hooks-3",
+              "type": "topic",
+              "title": "useContext"
+            },
+            {
+              "id": "react-hooks-4",
+              "type": "topic",
+              "title": "Custom Hooks"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "State Management",
+          "children": [
+            {
+              "id": "react-state-1",
+              "type": "topic",
+              "title": "Context API"
+            },
+            {
+              "id": "react-state-2",
+              "type": "topic",
+              "title": "Redux"
+            },
+            {
+              "id": "react-state-3",
+              "type": "topic",
+              "title": "Zustand"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Routing",
+          "children": [
+            {
+              "id": "react-route-1",
+              "type": "topic",
+              "title": "React Router"
+            },
+            {
+              "id": "react-route-2",
+              "type": "topic",
+              "title": "Navigation"
+            },
+            {
+              "id": "react-route-3",
+              "type": "topic",
+              "title": "Protected Routes"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Advanced Topics",
+          "children": [
+            {
+              "id": "react-adv-1",
+              "type": "topic",
+              "title": "Performance Optimization"
+            },
+            {
+              "id": "react-adv-2",
+              "type": "topic",
+              "title": "Testing"
+            },
+            {
+              "id": "react-adv-3",
+              "type": "topic",
+              "title": "Next.js"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "devops",
+      "title": "DevOps Engineer",
+      "description": "Learn DevOps practices, tools, and cloud infrastructure",
+      "difficulty": "advanced",
+      "content": [
+        {
+          "type": "category",
+          "title": "Linux & Scripting",
+          "children": [
+            {
+              "id": "devops-1",
+              "type": "topic",
+              "title": "Linux Fundamentals"
+            },
+            {
+              "id": "devops-2",
+              "type": "topic",
+              "title": "Bash Scripting"
+            },
+            {
+              "id": "devops-3",
+              "type": "topic",
+              "title": "Python Automation"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Version Control",
+          "children": [
+            {
+              "id": "devops-git-1",
+              "type": "topic",
+              "title": "Git"
+            },
+            {
+              "id": "devops-git-2",
+              "type": "topic",
+              "title": "GitHub Actions"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Containers",
+          "children": [
+            {
+              "id": "devops-cont-1",
+              "type": "topic",
+              "title": "Docker"
+            },
+            {
+              "id": "devops-cont-2",
+              "type": "topic",
+              "title": "Kubernetes"
+            },
+            {
+              "id": "devops-cont-3",
+              "type": "topic",
+              "title": "Helm"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "CI/CD",
+          "children": [
+            {
+              "id": "devops-cicd-1",
+              "type": "topic",
+              "title": "Jenkins"
+            },
+            {
+              "id": "devops-cicd-2",
+              "type": "topic",
+              "title": "GitLab CI"
+            },
+            {
+              "id": "devops-cicd-3",
+              "type": "topic",
+              "title": "CircleCI"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Cloud Platforms",
+          "children": [
+            {
+              "id": "devops-cloud-1",
+              "type": "topic",
+              "title": "AWS"
+            },
+            {
+              "id": "devops-cloud-2",
+              "type": "topic",
+              "title": "Azure"
+            },
+            {
+              "id": "devops-cloud-3",
+              "type": "topic",
+              "title": "Google Cloud"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "title": "Monitoring",
+          "children": [
+            {
+              "id": "devops-mon-1",
+              "type": "topic",
+              "title": "Prometheus"
+            },
+            {
+              "id": "devops-mon-2",
+              "type": "topic",
+              "title": "Grafana"
+            },
+            {
+              "id": "devops-mon-3",
+              "type": "topic",
+              "title": "ELK Stack"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

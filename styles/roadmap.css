@@ -1,0 +1,214 @@
+/* Roadmap Page Styles */
+.roadmap-hero {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: var(--white);
+    padding: 3rem 0;
+}
+
+.back-button {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: var(--white);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+#roadmap-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#roadmap-description {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin-bottom: 1rem;
+}
+
+.progress-info {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.progress-badge {
+    background-color: var(--warning-color);
+    color: var(--white);
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+/* Roadmap Content */
+.roadmap-content {
+    padding: 3rem 0;
+}
+
+.roadmap-canvas-wrapper {
+    background-color: var(--white);
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+}
+
+/* SVG Roadmap Styles */
+.roadmap-node {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.roadmap-node rect {
+    stroke: #6366f1;
+    stroke-width: 2;
+    fill: #fef3c7;
+    rx: 8;
+    transition: all 0.3s ease;
+}
+
+.roadmap-node.completed rect {
+    fill: #dcfce7;
+    stroke: #10b981;
+}
+
+.roadmap-node.highlighted rect {
+    fill: #fef08a;
+    stroke: #ca8a04;
+    stroke-width: 3;
+}
+
+.roadmap-node:hover rect {
+    fill: #fde68a;
+    stroke: #4f46e5;
+    stroke-width: 3;
+}
+
+.roadmap-node text {
+    fill: #1f2937;
+    font-size: 14px;
+    font-weight: 500;
+    pointer-events: none;
+    user-select: none;
+}
+
+.connector-line {
+    stroke: #9ca3af;
+    stroke-width: 2;
+    fill: none;
+}
+
+.connector-line.completed {
+    stroke: #10b981;
+    stroke-width: 3;
+}
+
+.category-node rect {
+    fill: #fef08a;
+    stroke: #ca8a04;
+    stroke-width: 3;
+}
+
+.category-node text {
+    font-weight: 700;
+    font-size: 16px;
+}
+
+/* Node Details Modal */
+.node-modal {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    z-index: 2000;
+    max-width: 500px;
+    width: 90%;
+}
+
+.node-modal.active {
+    display: block;
+}
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1999;
+}
+
+.modal-overlay.active {
+    display: block;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.modal-header h3 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6b7280;
+}
+
+.modal-content p {
+    margin-bottom: 1rem;
+    color: #6b7280;
+}
+
+.toggle-complete {
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.toggle-complete:hover {
+    background-color: var(--secondary-color);
+}
+
+.toggle-complete.completed {
+    background-color: var(--success-color);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    #roadmap-title {
+        font-size: 1.8rem;
+    }
+
+    .roadmap-canvas-wrapper {
+        padding: 1rem;
+    }
+}
