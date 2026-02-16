@@ -1,6 +1,7 @@
 // Global variables
 let currentRoadmap = null;
 let completedTopics = new Set();
+let allRoadmaps = [];
 const STORAGE_KEY_PREFIX = 'roadmap_progress_';
 
 // Get roadmap ID from URL
@@ -21,6 +22,7 @@ async function loadRoadmap() {
     try {
         const response = await fetch('data/roadmaps.json');
         const data = await response.json();
+        allRoadmaps = data.roadmaps;
         currentRoadmap = data.roadmaps.find(r => r.id === roadmapId);
         
         if (!currentRoadmap) {
@@ -30,6 +32,7 @@ async function loadRoadmap() {
         
         loadProgress();
         displayRoadmapInfo();
+        loadRelatedRoadmaps();
         renderRoadmap();
     } catch (error) {
         console.error('Error loading roadmap:', error);
@@ -87,121 +90,226 @@ function countTotalTopics(content) {
     return count;
 }
 
-// Render roadmap visualization
+// Render roadmap visualization with serpentine horizontal layout
 function renderRoadmap() {
     const svg = document.getElementById('roadmap-svg');
-    const startX = 600;
-    const startY = 50;
-    const verticalGap = 120;
-    const horizontalGap = 250;
+    const padding = 20;
+    const nodeSpacing = 280;
+    const rowHeight = 140;
+    const nodesPerRow = 3;
     
-    let yOffset = startY;
-    
-    // Render each section
-    currentRoadmap.content.forEach((section, index) => {
-        yOffset = renderSection(svg, section, startX, yOffset, horizontalGap, verticalGap);
-        yOffset += 50; // Extra gap between sections
+    // Get all topics from the roadmap
+    const allTopics = [];
+    currentRoadmap.content.forEach(section => {
+        if (section.type === 'category' && section.children) {
+            section.children.forEach(child => {
+                allTopics.push({
+                    ...child,
+                    category: section.title
+                });
+            });
+        }
     });
     
-    // Adjust SVG height
-    svg.setAttribute('height', yOffset + 50);
+    // Calculate SVG dimensions
+    const totalRows = Math.ceil((allTopics.length + 2) / nodesPerRow);
+    const svgWidth = nodesPerRow * nodeSpacing + padding * 2;
+    const svgHeight = totalRows * rowHeight + padding * 2;
+    
+    svg.setAttribute('width', svgWidth);
+    svg.setAttribute('height', svgHeight);
+    svg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
+    
+    // Create START node
+    const startX = padding + nodeSpacing / 2;
+    const startY = padding + rowHeight / 2;
+    
+    let currentIndex = 0;
+    let previousX = startX;
+    let previousY = startY;
+    
+    // First, draw all paths (so they appear behind nodes)
+    const pathPositions = [{x: startX, y: startY}];
+    
+    allTopics.forEach((topic, index) => {
+        const position = index + 1;
+        const row = Math.floor(position / nodesPerRow);
+        const col = position % nodesPerRow;
+        const isReversed = row % 2 === 1;
+        const actualCol = isReversed ? (nodesPerRow - 1 - col) : col;
+        
+        const x = padding + actualCol * nodeSpacing + nodeSpacing / 2;
+        const y = padding + row * rowHeight + rowHeight / 2;
+        
+        pathPositions.push({x, y, id: topic.id});
+    });
+    
+    // Add finish position
+    const finishPosition = allTopics.length + 1;
+    const finishRow = Math.floor(finishPosition / nodesPerRow);
+    const finishCol = finishPosition % nodesPerRow;
+    const isFinishReversed = finishRow % 2 === 1;
+    const finishActualCol = isFinishReversed ? (nodesPerRow - 1 - finishCol) : finishCol;
+    const finishX = padding + finishActualCol * nodeSpacing + nodeSpacing / 2;
+    const finishY = padding + finishRow * rowHeight + rowHeight / 2;
+    pathPositions.push({x: finishX, y: finishY});
+    
+    // Draw all paths first
+    for (let i = 0; i < pathPositions.length - 1; i++) {
+        createSerpentinePath(svg, pathPositions[i].x, pathPositions[i].y, 
+                            pathPositions[i + 1].x, pathPositions[i + 1].y, 
+                            pathPositions[i + 1].id);
+    }
+    
+    // Now draw all nodes (they'll appear on top)
+    createRoundNode(svg, 'START', startX, startY, 'start', null, 32);
+    
+    allTopics.forEach((topic, index) => {
+        const position = index + 1;
+        const row = Math.floor(position / nodesPerRow);
+        const col = position % nodesPerRow;
+        const isReversed = row % 2 === 1;
+        const actualCol = isReversed ? (nodesPerRow - 1 - col) : col;
+        
+        const x = padding + actualCol * nodeSpacing + nodeSpacing / 2;
+        const y = padding + row * rowHeight + rowHeight / 2;
+        
+        createRoundNode(svg, topic.title, x, y, 'topic', topic.id, 28, topic.category);
+    });
+    
+    createRoundNode(svg, 'FINISH', finishX, finishY, 'finish', null, 32);
 }
 
-// Render a section of the roadmap
-function renderSection(svg, section, x, y, horizontalGap, verticalGap) {
-    let currentY = y;
+// Create serpentine path between nodes
+function createSerpentinePath(svg, x1, y1, x2, y2, targetId) {
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.classList.add('roadmap-path');
     
-    // Render category node
-    if (section.type === 'category') {
-        createNode(svg, section.title, x, currentY, 'category', null);
-        currentY += verticalGap;
-        
-        // Render children
-        if (section.children) {
-            currentY = renderChildren(svg, section.children, x, currentY, horizontalGap, verticalGap);
+    // Determine if we're going right, left, or down
+    const dx = x2 - x1;
+    const dy = y2 - y1;
+    
+    let pathData;
+    if (Math.abs(dx) > Math.abs(dy)) {
+        // Horizontal movement - straight line
+        pathData = `M ${x1} ${y1} L ${x2} ${y2}`;
+    } else if (dy > 0) {
+        // Moving down (end of row) - create smooth rounded corner
+        const radius = 50;
+        if (dx > 0) {
+            // Turn right and down
+            const cornerX = x2;
+            const cornerY1 = y1;
+            const cornerY2 = y2;
+            pathData = `M ${x1} ${y1} L ${cornerX - radius} ${cornerY1} Q ${cornerX} ${cornerY1}, ${cornerX} ${cornerY1 + radius} L ${cornerX} ${cornerY2}`;
+        } else if (dx < 0) {
+            // Turn left and down
+            const cornerX = x2;
+            const cornerY1 = y1;
+            const cornerY2 = y2;
+            pathData = `M ${x1} ${y1} L ${cornerX + radius} ${cornerY1} Q ${cornerX} ${cornerY1}, ${cornerX} ${cornerY1 + radius} L ${cornerX} ${cornerY2}`;
+        } else {
+            pathData = `M ${x1} ${y1} L ${x2} ${y2}`;
         }
     } else {
-        // Single topic
-        createNode(svg, section.title, x, currentY, section.type, section.id);
-        currentY += verticalGap;
+        pathData = `M ${x1} ${y1} L ${x2} ${y2}`;
     }
     
-    return currentY;
+    path.setAttribute('d', pathData);
+    
+    if (targetId && completedTopics.has(targetId)) {
+        path.classList.add('completed');
+    }
+    
+    svg.appendChild(path);
 }
 
-// Render children nodes
-function renderChildren(svg, children, centerX, startY, horizontalGap, verticalGap) {
-    const nodeWidth = 200;
-    const totalWidth = (children.length - 1) * horizontalGap;
-    const startX = centerX - totalWidth / 2;
-    
-    let maxY = startY;
-    
-    children.forEach((child, index) => {
-        const x = startX + (index * horizontalGap);
-        const y = startY;
-        
-        // Draw connector from parent
-        createConnector(svg, centerX, startY - verticalGap + 40, x, y, child.id);
-        
-        // Create node
-        createNode(svg, child.title, x, y, child.type, child.id);
-        
-        maxY = Math.max(maxY, y + verticalGap);
-    });
-    
-    return maxY;
-}
-
-// Create a node
-function createNode(svg, title, x, y, type, id) {
-    const nodeWidth = 200;
-    const nodeHeight = 60;
-    const nodeX = x - nodeWidth / 2;
-    
+// Create a round node with icon support
+function createRoundNode(svg, title, x, y, type, id, radius = 50, category = null) {
     const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    group.classList.add('roadmap-node');
-    if (type === 'category') {
-        group.classList.add('category-node');
-    }
+    group.classList.add('roadmap-node', `${type}-node`);
+    
     if (id && completedTopics.has(id)) {
         group.classList.add('completed');
     }
     
-    // Rectangle
-    const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-    rect.setAttribute('x', nodeX);
-    rect.setAttribute('y', y);
-    rect.setAttribute('width', nodeWidth);
-    rect.setAttribute('height', nodeHeight);
+    // Main circle
+    const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+    circle.setAttribute('cx', x);
+    circle.setAttribute('cy', y);
+    circle.setAttribute('r', radius);
+    circle.classList.add('node-circle');
+    group.appendChild(circle);
     
-    // Text
+    // Add checkmark for completed nodes
+    if (id && completedTopics.has(id)) {
+        const checkPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        checkPath.setAttribute('d', `M ${x-8} ${y} L ${x-2} ${y+6} L ${x+8} ${y-7}`);
+        checkPath.setAttribute('stroke', '#ffffff');
+        checkPath.setAttribute('stroke-width', '2');
+        checkPath.setAttribute('stroke-linecap', 'round');
+        checkPath.setAttribute('stroke-linejoin', 'round');
+        checkPath.setAttribute('fill', 'none');
+        group.appendChild(checkPath);
+    }
+    
+    // Category label above the circle (for topics only)
+    if (category && type === 'topic') {
+        const categoryText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        categoryText.setAttribute('x', x);
+        categoryText.setAttribute('y', y - radius - 5);
+        categoryText.setAttribute('text-anchor', 'middle');
+        categoryText.classList.add('category-label');
+        categoryText.textContent = category.toUpperCase();
+        group.appendChild(categoryText);
+    }
+    
+    // Text label below the circle
     const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     text.setAttribute('x', x);
-    text.setAttribute('y', y + nodeHeight / 2);
+    text.setAttribute('y', y + radius + 14);
     text.setAttribute('text-anchor', 'middle');
-    text.setAttribute('dominant-baseline', 'middle');
+    text.classList.add('node-label');
     
-    // Wrap text if too long
-    const words = title.split(' ');
-    if (words.length > 3) {
+    // Smart text wrapping for better readability
+    const maxChars = type === 'start' || type === 'finish' ? 10 : 20;
+    if (title.length > maxChars) {
+        const words = title.split(' ');
+        let line1 = '';
+        let line2 = '';
+        let currentLine = 1;
+        
+        words.forEach((word) => {
+            const testLine = currentLine === 1 ? line1 + (line1 ? ' ' : '') + word : line2 + (line2 ? ' ' : '') + word;
+            
+            if (currentLine === 1 && testLine.length <= maxChars) {
+                line1 = testLine;
+            } else if (currentLine === 1) {
+                // Move to line 2
+                currentLine = 2;
+                line2 = word;
+            } else {
+                line2 += ' ' + word;
+            }
+        });
+        
         const tspan1 = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
         tspan1.setAttribute('x', x);
-        tspan1.setAttribute('dy', '-0.5em');
-        tspan1.textContent = words.slice(0, 2).join(' ');
-        
-        const tspan2 = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
-        tspan2.setAttribute('x', x);
-        tspan2.setAttribute('dy', '1.2em');
-        tspan2.textContent = words.slice(2).join(' ');
-        
+        tspan1.setAttribute('dy', 0);
+        tspan1.textContent = line1;
         text.appendChild(tspan1);
-        text.appendChild(tspan2);
+        
+        if (line2) {
+            const tspan2 = document.createElementNS('http://www.w3.org/2000/svg', 'tspan');
+            tspan2.setAttribute('x', x);
+            tspan2.setAttribute('dy', '1.2em');
+            tspan2.textContent = line2;
+            text.appendChild(tspan2);
+        }
     } else {
         text.textContent = title;
     }
     
-    group.appendChild(rect);
     group.appendChild(text);
     
     // Add click event for topics
@@ -213,22 +321,6 @@ function createNode(svg, title, x, y, type, id) {
     svg.appendChild(group);
 }
 
-// Create connector line
-function createConnector(svg, x1, y1, x2, y2, targetId) {
-    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-    line.classList.add('connector-line');
-    line.setAttribute('x1', x1);
-    line.setAttribute('y1', y1);
-    line.setAttribute('x2', x2);
-    line.setAttribute('y2', y2);
-    
-    if (targetId && completedTopics.has(targetId)) {
-        line.classList.add('completed');
-    }
-    
-    svg.appendChild(line);
-}
-
 // Show node details in modal
 function showNodeDetails(id, title) {
     // Create modal if it doesn't exist
@@ -238,7 +330,6 @@ function showNodeDetails(id, title) {
     if (!modal) {
         overlay = document.createElement('div');
         overlay.className = 'modal-overlay';
-        overlay.addEventListener('click', closeModal);
         
         modal = document.createElement('div');
         modal.className = 'node-modal';
@@ -257,18 +348,27 @@ function showNodeDetails(id, title) {
         document.body.appendChild(modal);
         
         modal.querySelector('.close-modal').addEventListener('click', closeModal);
-        modal.querySelector('#toggle-btn').addEventListener('click', () => toggleComplete(id));
     }
+    
+    // Remove previous click listeners by replacing the button
+    const oldBtn = document.getElementById('toggle-btn');
+    const newBtn = oldBtn.cloneNode(true);
+    oldBtn.parentNode.replaceChild(newBtn, oldBtn);
+    
+    // Add new click listener with the current id
+    newBtn.addEventListener('click', () => toggleComplete(id));
+    
+    // Also handle overlay click
+    overlay.onclick = closeModal;
     
     // Update modal content
     document.getElementById('modal-title').textContent = title;
     document.getElementById('modal-description').textContent = `Learn about ${title} and master this topic.`;
     
-    const toggleBtn = document.getElementById('toggle-btn');
     const isCompleted = completedTopics.has(id);
     
-    toggleBtn.textContent = isCompleted ? 'Mark as Incomplete' : 'Mark as Complete';
-    toggleBtn.classList.toggle('completed', isCompleted);
+    newBtn.textContent = isCompleted ? 'Mark as Incomplete' : 'Mark as Complete';
+    newBtn.classList.toggle('completed', isCompleted);
     
     // Show modal
     overlay.classList.add('active');
@@ -298,6 +398,24 @@ function toggleComplete(id) {
     // Re-render roadmap
     document.getElementById('roadmap-svg').innerHTML = '';
     renderRoadmap();
+}
+
+// Load related roadmaps in sidebar
+function loadRelatedRoadmaps() {
+    const relatedContainer = document.getElementById('related-roadmaps');
+    if (!relatedContainer) return;
+    
+    // Get roadmaps related to current one (exclude current)
+    const relatedRoadmaps = allRoadmaps
+        .filter(r => r.id !== currentRoadmap.id)
+        .slice(0, 4); // Show up to 4 related roadmaps
+    
+    relatedContainer.innerHTML = relatedRoadmaps.map(roadmap => `
+        <a href="roadmap.html?id=${roadmap.id}" class="related-item">
+            <span class="check-icon">✓</span>
+            <span class="title">${roadmap.title}</span>
+        </a>
+    `).join('');
 }
 
 // Initialize on page load

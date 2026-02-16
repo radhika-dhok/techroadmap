@@ -37,10 +37,28 @@
 
     <section class="roadmap-content">
         <div class="container">
-            <div class="roadmap-canvas-wrapper">
-                <svg id="roadmap-svg" width="100%" height="800">
-                    <!-- Roadmap nodes will be rendered here -->
-                </svg>
+            <div class="roadmap-layout">
+                <!-- Related Roadmaps Sidebar -->
+                <aside class="related-sidebar">
+                    <h3>Related Roadmaps</h3>
+                    <div id="related-roadmaps" class="related-list">
+                        <!-- Related roadmaps will be dynamically loaded -->
+                    </div>
+                    <div class="learning-tip">
+                        <h4>💡 Learning Tip</h4>
+                        <p>HTML, CSS and JavaScript are the backbone of web development. Make sure to practice by building lots of projects.</p>
+                    </div>
+                    <button class="btn-secondary" onclick="window.location.href='index.html#roadmaps'">
+                        View All Roadmaps
+                    </button>
+                </aside>
+                
+                <!-- Main Roadmap Canvas -->
+                <div class="roadmap-canvas-wrapper">
+                    <svg id="roadmap-svg" width="80%" height="800">
+                        <!-- Roadmap nodes will be rendered here -->
+                    </svg>
+                </div>
             </div>
         </div>
     </section>

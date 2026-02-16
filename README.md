@@ -1,8 +1,48 @@
-# TechRoadmap - Technology Learning Roadmap Website
+# TechRoadmap - Interactive Technology Learning Pathways
 
-A technology roadmap website inspired by roadmap.sh, built with vanilla JavaScript, HTML, and CSS. This project helps users visualize and track their learning progress across various technologies.
+<div align="center">
+https://radhika-dhok.github.io/techroadmap/
 
-## Features
+**Your personalized guide to mastering modern technologies**
+
+A beautiful, interactive roadmap visualization platform that helps developers navigate their learning journey through structured, step-by-step technology paths.
+
+[View Demo](#how-to-use) • [Features](#features) • [Getting Started](#how-to-use) • [Roadmaps](#technologies-included)
+
+</div>
+
+---
+
+## 📖 Introduction
+
+**TechRoadmap** is a lightweight, fully client-side web application designed to help developers, students, and technology enthusiasts visualize and track their learning progress across various technology domains. Inspired by popular learning path platforms, TechRoadmap provides an elegant serpentine visualization that makes complex learning journeys feel manageable and achievable.
+
+### Why TechRoadmap?
+
+In today's rapidly evolving tech landscape, learning new technologies can feel overwhelming. With countless frameworks, tools, and concepts to master, it's easy to lose track of where you are and where you're headed. TechRoadmap solves this by:
+
+- **📍 Providing Clear Direction**: Each roadmap offers a carefully curated, sequential learning path from fundamentals to advanced concepts
+- **✅ Tracking Your Progress**: Visual indicators and completion tracking help you see how far you've come
+- **🎯 Breaking Down Complexity**: Large topics are divided into manageable, bite-sized learning modules
+- **🎨 Beautiful Visualization**: An intuitive serpentine design makes navigation natural and engaging
+- **💾 Persistent Storage**: Your progress is automatically saved locally, so you never lose track
+- **🚀 Zero Setup Required**: No installations, no accounts, no backend - just open and start learning
+
+### Built With Modern Web Technologies
+
+TechRoadmap is crafted using pure vanilla JavaScript, HTML5, and CSS3, demonstrating that powerful, interactive applications don't always require heavy frameworks. The project emphasizes:
+
+- **Clean, maintainable code** that's easy to understand and extend
+- **Responsive design** that works seamlessly on desktop, tablet, and mobile devices
+- **Progressive enhancement** with smooth animations and intuitive interactions
+- **Local-first architecture** ensuring privacy and offline capability
+- **JSON-driven content** making it simple to add or modify roadmaps
+
+Whether you're a beginner starting your coding journey or an experienced developer exploring new domains, TechRoadmap provides the structure and visual guidance you need to learn systematically and effectively.
+
+---
+
+## ✨ Features
 
 - **Homepage**: Browse available technology roadmaps
 - **Interactive Roadmaps**: Visual representation of learning paths with clickable nodes

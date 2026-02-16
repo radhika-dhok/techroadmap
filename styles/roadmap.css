@@ -50,75 +50,204 @@
 /* Roadmap Content */
 .roadmap-content {
     padding: 3rem 0;
+    background: linear-gradient(to bottom, #f9fafb 0%, #ffffff 100%);
 }
 
-.roadmap-canvas-wrapper {
-    background-color: var(--white);
+.roadmap-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+}
+
+/* Related Roadmaps Sidebar */
+.related-sidebar {
+    background: var(--white);
     border-radius: 12px;
-    padding: 2rem;
+    padding: 1.5rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    overflow-x: auto;
+    height: fit-content;
+    position: sticky;
+    top: 20px;
 }
 
-/* SVG Roadmap Styles */
-.roadmap-node {
+.related-sidebar h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    border-bottom: 2px solid #e5e7eb;
+    padding-bottom: 0.5rem;
+}
+
+.related-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+}
+
+.related-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: #f9fafb;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: var(--text-dark);
+}
+
+.related-item:hover {
+    background: #e5e7eb;
+    transform: translateX(5px);
+}
+
+.related-item .check-icon {
+    color: #10b981;
+    font-size: 1.2rem;
+}
+
+.related-item .title {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.learning-tip {
+    background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.learning-tip h4 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #78350f;
+}
+
+.learning-tip p {
+    font-size: 0.85rem;
+    color: #78350f;
+    line-height: 1.5;
+}
+
+.btn-secondary {
+    width: 100%;
+    padding: 0.75rem;
+    background: var(--white);
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    border-radius: 8px;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.roadmap-node rect {
-    stroke: #6366f1;
-    stroke-width: 2;
-    fill: #fef3c7;
-    rx: 8;
+.btn-secondary:hover {
+    background: var(--primary-color);
+    color: var(--white);
+}
+
+.roadmap-canvas-wrapper {
+    background-color: var(--white);
+    background-image: 
+        linear-gradient(rgba(99, 102, 241, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 102, 241, 0.02) 1px, transparent 1px);
+    background-size: 25px 25px;
+    border-radius: 12px;
+    padding: 1.5rem 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+}
+
+#roadmap-svg {
+    display: block;
+}
+
+/* SVG Roadmap Styles - Serpentine Design */
+.roadmap-node {
     transition: all 0.3s ease;
 }
 
-.roadmap-node.completed rect {
-    fill: #dcfce7;
-    stroke: #10b981;
+/* Roadmap Path (connecting line) */
+.roadmap-path {
+    stroke: #d1d5db;
+    stroke-width: 7;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: all 0.3s ease;
+    opacity: 0.8;
 }
 
-.roadmap-node.highlighted rect {
-    fill: #fef08a;
-    stroke: #ca8a04;
+.roadmap-path.completed {
+    stroke: #34d399;
+    stroke-width: 7;
+    opacity: 1;
+}
+
+/* Node Circles */
+.node-circle {
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Start Node */
+.start-node .node-circle {
+    fill: #fbbf24;
+    stroke: #f59e0b;
     stroke-width: 3;
 }
 
-.roadmap-node:hover rect {
-    fill: #fde68a;
-    stroke: #4f46e5;
+/* Topic Node */
+.topic-node .node-circle {
+    fill: #8b5cf6;
+    stroke: #7c3aed;
+    stroke-width: 2.5;
+}
+
+.topic-node.completed .node-circle {
+    fill: #10b981;
+    stroke: #059669;
+    stroke-width: 2.5;
+}
+
+/* Finish Node */
+.finish-node .node-circle {
+    fill: #fbbf24;
+    stroke: #f59e0b;
     stroke-width: 3;
 }
 
-.roadmap-node text {
+/* Node Labels */
+.node-label {
     fill: #1f2937;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 11px;
+    font-weight: 600;
     pointer-events: none;
     user-select: none;
 }
 
-.connector-line {
-    stroke: #9ca3af;
-    stroke-width: 2;
-    fill: none;
-}
-
-.connector-line.completed {
-    stroke: #10b981;
-    stroke-width: 3;
-}
-
-.category-node rect {
-    fill: #fef08a;
-    stroke: #ca8a04;
-    stroke-width: 3;
-}
-
-.category-node text {
+.start-node .node-label,
+.finish-node .node-label {
+    font-size: 12px;
     font-weight: 700;
-    font-size: 16px;
+    fill: #1f2937;
+}
+
+/* Category Label */
+.category-label {
+    fill: #6b7280;
+    font-size: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    pointer-events: none;
+    user-select: none;
 }
 
 /* Node Details Modal */
@@ -203,6 +332,21 @@
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+    .roadmap-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .related-sidebar {
+        position: static;
+        order: 2;
+    }
+    
+    .roadmap-canvas-wrapper {
+        order: 1;
+    }
+}
+
 @media (max-width: 768px) {
     #roadmap-title {
         font-size: 1.8rem;
@@ -210,5 +354,62 @@
 
     .roadmap-canvas-wrapper {
         padding: 1rem;
+    }
+    
+    .related-sidebar {
+        margin-top: 1rem;
+    }
+    
+    .roadmap-path {
+        stroke-width: 6;
+    }
+    
+    .roadmap-path.completed {
+        stroke-width: 6;
+    }
+    
+    .node-label {
+        font-size: 11px;
+    }
+    
+    .category-label {
+        font-size: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .roadmap-hero {
+        padding: 2rem 0;
+    }
+    
+    #roadmap-title {
+        font-size: 1.5rem;
+    }
+    
+    .progress-info {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: flex-start;
+    }
+    
+    .roadmap-canvas-wrapper {
+        padding: 0.5rem;
+    }
+    
+    .roadmap-path {
+        stroke-width: 5;
+    }
+    
+    .node-label {
+        font-size: 10px;
+    }
+    
+    .category-label {
+        font-size: 7px;
+    }
+    
+    .start-node .node-label,
+    .finish-node .node-label {
+        font-size: 11px;
     }
 }
